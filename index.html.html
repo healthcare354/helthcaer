@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MJ Health Care - منصة الرعاية الصحية والتعليمية</title>
+    <meta name="description" content="منصة متكاملة للرعاية الصحية والتعليم الطبي، تقديم محتوى تعليمي شامل في الإسعافات الأولية، المهارات العملية، جسم الإنسان، والتوعية الصحية">
+    <meta name="keywords" content="رعاية صحية, إسعافات أولية, تعليم طبي, مهارات صحية, توعية صحية">
+    <meta name="author" content="MJ Health Care">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1a56db",
+                        secondary: "#0e9f6e",
+                        accent: "#f05252",
+                        dark: "#1f2937",
+                        light: "#f9fafb"
+                    },
+                    fontFamily: {
+                        'cairo': ['Cairo', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'card': '0 4px 20px rgba(0, 0, 0, 0.08)',
+                        'card-hover': '0 8px 30px rgba(0, 0, 0, 0.12)'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a56db 0%, #0e9f6e 100%);
+        }
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: #0e9f6e;
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-circle {
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 font-cairo text-gray-800">
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">MJ</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-primary">MJ Health Care</h1>
+                        <p class="text-sm text-gray-600">الرعاية الصحية والتعليمية</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <ul id="nav-menu" class="hidden md:flex items-center space-x-8 space-x-reverse"></ul>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 bg-white rounded-lg shadow-lg p-4"></div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="gradient-bg text-white py-16">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="md:w-1/2 mb-10 md:mb-0">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6">مرحباً بك في MJ Health Care</h2>
+                        <p class="text-xl mb-8 opacity-90">منصة متكاملة للتعليم الصحي والرعاية الطبية، نقدم لك المعرفة والمهارات اللازمة للتعامل مع الحالات الصحية المختلفة</p>
+                        <div class="flex flex-wrap gap-4">
+                            <button class="bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
+                                ابدأ التعلم الآن
+                            </button>
+                            <button class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary transition duration-300">
+                                استكشاف الأقسام
+                            </button>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://picsum.photos/600/400?random=101" alt="فريق الرعاية الصحية" class="rounded-2xl shadow-2xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 section-title inline-block">لوحة التحكم التعليمية</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Daily Health Tip -->
+                    <div class="bg-gradient-to-l from-blue-50 to-green-50 p-6 rounded-2xl shadow-card border border-blue-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-heartbeat text-white text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-dark">النصيحة الصحية اليومية</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">شرب 8 أكواب من الماء يومياً يحسن وظائف الجسم، وينشط الدورة الدموية، ويساعد في التخلص من السموم. لا تنتظر حتى تشعر بالعطش!</p>
+                        <div class="text-sm text-gray-500">
+                            <i class="far fa-calendar-alt ml-2"></i>
+                            <span>الأحد 15 ديسمبر 2024</span>
+                        </div>
+                    </div>
+
+                    <!-- Latest Announcements -->
+                    <div class="bg-gradient-to-l from-purple-50 to-pink-50 p-6 rounded-2xl shadow-card border border-purple-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-bullhorn text-white text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-dark">آخر الإعلانات</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-accent rounded-full ml-3"></div>
+                                <p class="text-gray-700">ورشة عمل جديدة عن الإنعاش القلبي الرئوي</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-secondary rounded-full ml-3"></div>
+                                <p class="text-gray-700">مسابقة الشهر: أفضل تقرير عن التوعية الصحية</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Completed Lessons -->
+                    <div class="bg-gradient-to-l from-green-50 to-teal-50 p-6 rounded-2xl shadow-card border border-green-100">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-graduation-cap text-white text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-dark">الدروس المكتملة</h3>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="relative w-24 h-24">
+                                <svg class="w-24 h-24 progress-ring">
+                                    <circle class="text-gray-200" stroke-width="8" stroke="currentColor" fill="transparent" r="45" cx="50" cy="50"/>
+                                    <circle class="progress-ring-circle text-secondary" stroke-width="8" stroke-linecap="round" stroke="currentColor" fill="transparent" r="45" cx="50" cy="50" style="stroke-dashoffset: 113.2"/>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-2xl font-bold text-dark">12/20</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 mb-2">أنهيت 60% من الدروس</p>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-secondary h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Homework Alerts & Daily Test -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Homework Alerts -->
+                    <div class="bg-white p-6 rounded-2xl shadow-card border border-gray-200">
+                        <h3 class="text-xl font-bold text-dark mb-6 flex items-center">
+                            <i class="fas fa-tasks text-primary ml-3"></i>
+                            تنبيهات الواجبات
+                        </h3>
+                        <div id="homework-list" class="space-y-4"></div>
+                    </div>
+
+                    <!-- Daily Quick Test -->
+                    <div class="bg-gradient-to-l from-orange-50 to-red-50 p-6 rounded-2xl shadow-card border border-orange-100">
+                        <h3 class="text-xl font-bold text-dark mb-6 flex items-center">
+                            <i class="fas fa-clock text-accent ml-3"></i>
+                            الاختبار السريع اليومي
+                        </h3>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-brain text-white text-3xl"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold mb-4">اختبار الإسعافات الأولية</h4>
+                            <p class="text-gray-700 mb-6">اختبر معرفتك في التعامل مع حالات الحروق والاختناق في 5 دقائق فقط</p>
+                            <button class="bg-accent text-white px-8 py-3 rounded-full font-semibold hover:bg-red-600 transition duration-300 w-full">
+                                ابدأ الاختبار الآن
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- First Aid Section -->
+        <section id="first-aid" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-4">قسم الإسعافات الأولية</h2>
+                <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">تعلم كيفية التعامل مع الحالات الطارئة بشكل صحيح وآمن. قسم شامل يغطي أهم الحالات التي قد تواجهها في الحياة اليومية</p>
+                
+                <div id="first-aid-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- Practical Skills Section -->
+        <section id="practical-skills" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-4">قسم المهارات العملية</h2>
+                <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">اكتسب المهارات الأساسية في الرعاية الصحية من خلال شرح تفصيلي وخطوات عملية مدعومة بالصور والتوضيحات</p>
+                
+                <div id="skills-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- Human Body Section -->
+        <section id="human-body" class="py-16 bg-gradient-to-l from-blue-50 to-cyan-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-4">قسم جسم الإنسان</h2>
+                <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">استكشف عجائب جسم الإنسان من خلال شرح مفصل لأجهزة الجسم ووظائفها وأهم الأمراض الشائعة</p>
+                
+                <div id="body-systems" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- Health News Section -->
+        <section id="health-news" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-4">الأخبار والتوعية الصحية</h2>
+                <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">ابقَ على اطلاع بأحدث الأخبار الصحية والنصائح الطبية والأيام العالمية للتوعية الصحية</p>
+                
+                <div id="news-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <!-- About -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-xl">MJ</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mr-3">MJ Health Care</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6">منصة تعليمية متكاملة تهدف إلى نشر الوعي الصحي وتقديم المعرفة الطبية بطريقة مبسطة ومحترفة للجميع</p>
+                    <div class="flex space-x-4 space-x-reverse">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-700 transition duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-xl font-bold mb-6">روابط سريعة</h4>
+                    <ul id="footer-links" class="space-y-3"></ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-xl font-bold mb-6">اتصل بنا</h4>
+                        <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt ml-3 text-secondary"></i>
+                            <span>الكرك، الأردن</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fab fa-instagram ml-3 text-secondary"></i>
+                            <a href="https://www.instagram.com/mohammed_noor233?igsh=MWdoemE3NTlnZzdxbg==" target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-white transition duration-300">
+                                https://www.instagram.com/mohammed_noor233?igsh=MWdoemE3NTlnZzdxbg==
+                            </a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fab fa-instagram ml-3 text-secondary"></i>
+                            <a href="https://www.instagram.com/jlah_8?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-white transition duration-300">
+                                https://www.instagram.com/jlah_8?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==
+                            </a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope ml-3 text-secondary"></i>
+                            <span>jhadalqysy29@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-xl font-bold mb-6">النشرة البريدية</h4>
+                    <p class="text-gray-300 mb-4">اشترك للحصول على آخر التحديثات والنصائح الصحية</p>
+                    <div class="flex">
+                        <input type="email" placeholder="بريدك الإلكتروني" class="flex-grow px-4 py-3 rounded-r-lg text-dark focus:outline-none">
+                        <button class="bg-secondary px-4 py-3 rounded-l-lg hover:bg-green-600 transition duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificate Section -->
+            <div class="border-t border-gray-700 pt-8 mt-8">
+                <div class="bg-gray-800 rounded-2xl p-8">
+                    <h4 class="text-2xl font-bold text-center mb-8 text-secondary">شهادة الإثبات الملكية</h4>
+                    <div class="flex flex-col md:flex-row items-center justify-between">
+                        <div class="text-center md:text-right mb-6 md:mb-0">
+                            <p class="text-xl font-semibold mb-2">الرعاية الصحية والتعليمية</p>
+                            <p class="text-gray-300">تحت إشراف وإثبات ملكية</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 md:space-x-reverse">
+                                <div class="text-center">
+                                    <div class="w-24 h-24 mx-auto mb-3">
+                                        <img src="https://picsum.photos/200?random=201" alt="جهاد محمود راغب القيسي" class="w-full h-full rounded-full object-cover border-4 border-secondary">
+                                    </div>
+                                    <p class="font-semibold">جهاد القيسي</p>
+                                    <p class="text-sm text-gray-300">&nbsp;</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-24 h-24 mx-auto mb-3">
+                                        <img src="https://picsum.photos/200?random=202" alt="محمد عادل الجعافرة" class="w-full h-full rounded-full object-cover border-4 border-primary">
+                                    </div>
+                                    <p class="font-semibold">محمد نور</p>
+                                    <p class="text-sm text-gray-300">&nbsp;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8 pt-6 border-t border-gray-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data and Rendering -->
+    <script>
+        // Data Layer
+        const navigationData = [
+            { "id": "home", "label": "الرئيسية", "icon": "fas fa-home" },
+            { "id": "first-aid", "label": "الإسعافات الأولية", "icon": "fas fa-first-aid" },
+            { "id": "practical-skills", "label": "المهارات العملية", "icon": "fas fa-user-md" },
+            { "id": "human-body", "label": "جسم الإنسان", "icon": "fas fa-heartbeat" },
+            { "id": "health-news", "label": "الأخبار الصحية", "icon": "fas fa-newspaper" },
+            { "id": "contact", "label": "اتصل بنا", "icon": "fas fa-phone" }
+        ];
+
+        const homeworkData = [
+            { "title": "تقرير عن الإنعاش القلبي الرئوي", "due": "غداً", "priority": "high" },
+            { "title": "تمرين مهارات قياس الضغط", "due": "بعد غد", "priority": "medium" },
+            { "title": "اختبار جسم الإنسان", "due": "الأسبوع القادم", "priority": "low" }
+        ];
+
+        const firstAidData = [
+            {
+                "id": "cpr",
+                "title": "الإنعاش القلبي الرئوي CPR",
+                "image": "https://picsum.photos/300/200?random=1",
+                "description": "تقنية طبية طارئة تستخدم عندما يتوقف التنفس أو ينبض القلب",
+                "steps": 7,
+                "color": "bg-red-100",
+                "textColor": "text-red-800"
+            },
+            {
+                "id": "choking",
+                "title": "الاختناق",
+                "image": "https://picsum.photos/300/200?random=2",
+                "description": "انسداد مجرى الهواء بجسم غريب يمنع مرور الهواء",
+                "steps": 5,
+                "color": "bg-orange-100",
+                "textColor": "text-orange-800"
+            },
+            {
+                "id": "burns",
+                "title": "الحروق",
+                "image": "https://picsum.photos/300/200?random=3",
+                "description": "تلف أنسجة الجلد بسبب الحرارة، المواد الكيميائية، الكهرباء أو الإشعاع",
+                "steps": 6,
+                "color": "bg-yellow-100",
+                "textColor": "text-yellow-800"
+            },
+            {
+                "id": "bleeding",
+                "title": "النزيف",
+                "image": "https://picsum.photos/300/200?random=4",
+                "description": "خروج الدم من الأوعية الدموية نتيجة إصابة أو مرض",
+                "steps": 4,
+                "color": "bg-red-50",
+                "textColor": "text-red-700"
+            },
+            {
+                "id": "fractures",
+                "title": "الكسور",
+                "image": "https://picsum.photos/300/200?random=5",
+                "description": "كسر في استمرارية العظم نتيجة قوة خارجية تفوق تحمله",
+                "steps": 5,
+                "color": "bg-blue-100",
+                "textColor": "text-blue-800"
+            },
+            {
+                "id": "fainting",
+                "title": "الإغماء",
+                "image": "https://picsum.photos/300/200?random=6",
+                "description": "فقدان مؤقت للوعي بسبب نقص تدفق الدم إلى الدماغ",
+                "steps": 4,
+                "color": "bg-purple-100",
+                "textColor": "text-purple-800"
+            },
+            {
+                "id": "shock",
+                "title": "الصدمات",
+                "image": "https://picsum.photos/300/200?random=7",
+                "description": "حالة طبية خطيرة تنخفض فيها كمية الدم المتدفقة إلى أنسجة الجسم",
+                "steps": 6,
+                "color": "bg-gray-100",
+                "textColor": "text-gray-800"
+            },
+            {
+                "id": "poisoning",
+                "title": "التسمم",
+                "image": "https://picsum.photos/300/200?random=8",
+                "description": "تعرض الجسم لمواد سامة تؤثر على وظائفه الحيوية",
+                "steps": 5,
+                "color": "bg-green-100",
+                "textColor": "text-green-800"
+            }
+        ];
+
+        const skillsData = [
+            {
+                "id": "blood-pressure",
+                "title": "قياس ضغط الدم",
+                "image": "https://picsum.photos/300/200?random=11",
+                "tools": "جهاز قياس الضغط، سماعة طبية",
+                "time": "5 دقائق",
+                "level": "متوسط"
+            },
+            {
+                "id": "sugar",
+                "title": "قياس السكر",
+                "image": "https://picsum.photos/300/200?random=12",
+                "tools": "جهاز قياس السكر، شرائط اختبار، إبرة وخز",
+                "time": "2 دقيقة",
+                "level": "سهل"
+            },
+            {
+                "id": "temperature",
+                "title": "قياس الحرارة",
+                "image": "https://picsum.photos/300/200?random=13",
+                "tools": "ميزان حرارة رقمي، كحول للتطهير",
+                "time": "1 دقيقة",
+                "level": "سهل"
+            },
+            {
+                "id": "hand-washing",
+                "title": "غسل اليدين الطبي",
+                "image": "https://picsum.photos/300/200?random=14",
+                "tools": "صابون طبي، ماء جاري، منشفة نظيفة",
+                "time": "40-60 ثانية",
+                "level": "سهل"
+            },
+            {
+                "id": "gloves",
+                "title": "ارتداء القفازات",
+                "image": "https://picsum.photos/300/200?random=15",
+                "tools": "قفازات طبية معقمة",
+                "time": "30 ثانية",
+                "level": "سهل"
+            },
+            {
+                "id": "injection",
+                "title": "إعطاء الحقن",
+                "image": "https://picsum.photos/300/200?random=16",
+                "tools": "محقن، إبرة، دواء، كحول، قطنة",
+                "time": "3 دقائق",
+                "level": "متقدم"
+            },
+            {
+                "id": "wound-care",
+                "title": "العناية بالجروح",
+                "image": "https://picsum.photos/300/200?random=17",
+                "tools": "شاش، لاصق طبي، مطهر، قفازات",
+                "time": "10 دقائق",
+                "level": "متوسط"
+            },
+            {
+                "id": "vital-signs",
+                "title": "قياس العلامات الحيوية",
+                "image": "https://picsum.photos/300/200?random=18",
+                "tools": "معدات متعددة للعلامات الحيوية",
+                "time": "15 دقيقة",
+                "level": "متقدم"
+            }
+        ];
+
+        const bodySystemsData = [
+            {
+                "id": "circulatory",
+                "title": "الجهاز الدوري",
+                "image": "https://picsum.photos/300/200?random=21",
+                "function": "نقل الدم المحمل بالأكسجين والغذاء إلى خلايا الجسم",
+                "organs": "القلب، الشرايين، الأوردة، الشعيرات الدموية",
+                "diseases": "ارتفاع ضغط الدم، تصلب الشرايين، النوبات القلبية"
+            },
+            {
+                "id": "respiratory",
+                "title": "الجهاز التنفسي",
+                "image": "https://picsum.photos/300/200?random=22",
+                "function": "تبادل الغازات (أكسجين وثاني أكسيد الكربون) بين الجسم والهواء",
+                "organs": "الرئتان، القصبة الهوائية، الشعب الهوائية، الحجاب الحاجز",
+                "diseases": "الربو، الالتهاب الرئوي، الانسداد الرئوي المزمن"
+            },
+            {
+                "id": "nervous",
+                "title": "الجهاز العصبي",
+                "image": "https://picsum.photos/300/200?random=23",
+                "function": "التنسيق بين أعضاء الجسم والاستجابة للمؤثرات الخارجية",
+                "organs": "الدماغ، النخاع الشوكي، الأعصاب",
+                "diseases": "الصرع، السكتة الدماغية، مرض باركنسون"
+            },
+            {
+                "id": "digestive",
+                "title": "الجهاز الهضمي",
+                "image": "https://picsum.photos/300/200?random=24",
+                "function": "هضم الطعام وامتصاص العناصر الغذائية والتخلص من الفضلات",
+                "organs": "المعدة، الأمعاء، الكبد، البنكرياس",
+                "diseases": "قرحة المعدة، التهاب القولون، حصوات المرارة"
+            },
+            {
+                "id": "muscular",
+                "title": "الجهاز العضلي",
+                "image": "https://picsum.photos/300/200?random=25",
+                "function": "الحركة، الحفاظ على وضعية الجسم، إنتاج الحرارة",
+                "organs": "العضلات الهيكلية، العضلات الملساء، عضلة القلب",
+                "diseases": "الضمور العضلي، التهاب العضلات، التشنجات"
+            },
+            {
+                "id": "urinary",
+                "title": "الجهاز البولي",
+                "image": "https://picsum.photos/300/200?random=26",
+                "function": "تنقية الدم من الفضلات وتنظيم سوائل الجسم",
+                "organs": "الكليتان، الحالبان، المثانة، الإحليل",
+                "diseases": "حصوات الكلى، التهاب المسالك البولية، الفشل الكلوي"
+            }
+        ];
+
+        const newsData = [
+            {
+                "id": 1,
+                "title": "نصائح للوقاية من أمراض الشتاء",
+                "image": "https://picsum.photos/300/200?random=31",
+                "category": "نصائح صحية",
+                "date": "15 ديسمبر 2024",
+                "excerpt": "تعرف على أهم النصائح للوقاية من نزلات البرد والإنفلونزا خلال فصل الشتاء"
+            },
+            {
+                "id": 2,
+                "title": "اليوم العالمي للسكري",
+                "image": "https://picsum.photos/300/200?random=32",
+                "category": "أيام عالمية",
+                "date": "14 نوفمبر 2024",
+                "excerpt": "حملة توعوية شاملة عن مرض السكري وأهمية الفحص الدوري"
+            },
+            {
+                "id": 3,
+                "title": "أحدث علاجات ارتفاع ضغط الدم",
+                "image": "https://picsum.photos/300/200?random=33",
+                "category": "أخبار طبية",
+                "date": "10 ديسمبر 2024",
+                "excerpt": "اكتشافات جديدة في مجال علاج ارتفاع ضغط الدم بدون آثار جانبية"
+            },
+            {
+                "id": 4,
+                "title": "حملة التطعيم ضد الإنفلونزا",
+                "image": "https://picsum.photos/300/200?random=34",
+                "category": "حملات توعية",
+                "date": "1 ديسمبر 2024",
+                "excerpt": "انطلاق الحملة الوطنية للتطعيم ضد الإنفلونزا الموسمية"
+            },
+            {
+                "id": 5,
+                "title": "التوعية بسرطان الثدي",
+                "image": "https://picsum.photos/300/200?random=35",
+                "category": "توعية بالأمراض",
+                "date": "1 أكتوبر 2024",
+                "excerpt": "أهمية الفحص الذاتي والكشف المبكر عن سرطان الثدي"
+            },
+            {
+                "id": 6,
+                "title": "نظام غذائي صحي للقلب",
+                "image": "https://picsum.photos/300/200?random=36",
+                "category": "نصائح غذائية",
+                "date": "5 ديسمبر 2024",
+                "excerpt": "دليل كامل للنظام الغذائي الأمثل لصحة القلب والشرايين"
+            }
+        ];
+
+        const footerLinksData = [
+            { "label": "عن المنصة", "href": "#about" },
+            { "label": "الشروط والأحكام", "href": "#terms" },
+            { "label": "سياسة الخصوصية", "href": "#privacy" },
+            { "label": "الأسئلة الشائعة", "href": "#faq" },
+            { "label": "الدعم الفني", "href": "#support" },
+            { "label": "وظائف شاغرة", "href": "#jobs" }
+        ];
+
+        // Reusable Render Functions
+        function renderNavigation(items) {
+            return items.map(item => `
+                <li>
+                    <a href="#${item.id}" class="flex items-center text-gray-700 hover:text-primary font-medium transition duration-300" data-nav="${item.id}">
+                        <i class="${item.icon} ml-2"></i>
+                        ${item.label}
+                    </a>
+                </li>
+            `).join("");
+        }
+
+        function renderHomeworkItems(items) {
+            return items.map(item => `
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-300">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full ${item.priority === 'high' ? 'bg-accent' : item.priority === 'medium' ? 'bg-yellow-500' : 'bg-gray-400'} ml-3"></div>
+                        <div>
+                            <p class="font-medium">${item.title}</p>
+                            <p class="text-sm text-gray-500">موعد التسليم: ${item.due}</p>
+                        </div>
+                    </div>
+                    <button class="text-primary hover:text-primary-dark">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            `).join("");
+        }
+
+        function renderFirstAidCards(items) {
+            return items.map(item => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition duration-300 transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="absolute top-4 right-4 ${item.color} ${item.textColor} px-3 py-1 rounded-full text-sm font-semibold">
+                            ${item.steps} خطوات
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3">${item.title}</h3>
+                        <p class="text-gray-600 mb-4">${item.description}</p>
+                        <div class="flex justify-between items-center">
+                            <button class="text-primary font-semibold hover:text-primary-dark transition duration-300">
+                                اقرأ المزيد <i class="fas fa-arrow-left mr-2"></i>
+                            </button>
+                            <span class="text-sm text-gray-500">
+                                <i class="fas fa-clock ml-1"></i> 10 دقائق قراءة
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function renderSkillsCards(items) {
+            return items.map(item => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition duration-300">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-40 object-cover" loading="lazy">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold">${item.title}</h3>
+                            <span class="text-sm px-3 py-1 rounded-full ${item.level === 'سهل' ? 'bg-green-100 text-green-800' : item.level === 'متوسط' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}">
+                                ${item.level}
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-tools ml-2"></i>
+                            ${item.tools}
+                        </p>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span><i class="fas fa-clock ml-1"></i> ${item.time}</span>
+                            <button class="text-primary font-semibold hover:text-primary-dark transition duration-300">
+                                تعلم المهارة <i class="fas fa-arrow-left mr-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function renderBodySystems(items) {
+            return items.map(item => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition duration-300">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-4">${item.title}</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">الوظيفة:</p>
+                                <p class="text-gray-700">${item.function}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">الأعضاء:</p>
+                                <p class="text-gray-700">${item.organs}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1">أمراض شائعة:</p>
+                                <p class="text-gray-700">${item.diseases}</p>
+                            </div>
+                        </div>
+                        <button class="mt-6 w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
+                            استكشاف الجهاز <i class="fas fa-arrow-left mr-2"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function renderNewsCards(items) {
+            return items.map(item => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition duration-300">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover" loading="lazy">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-sm px-3 py-1 rounded-full bg-blue-100 text-primary font-semibold">
+                                ${item.category}
+                            </span>
+                            <span class="text-sm text-gray-500">${item.date}</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">${item.title}</h3>
+                        <p class="text-gray-600 mb-4">${item.excerpt}</p>
+                        <button class="text-primary font-semibold hover:text-primary-dark transition duration-300">
+                            اقرأ المقال <i class="fas fa-arrow-left mr-2"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function renderFooterLinks(items) {
+            return items.map(item => `
+                <li>
+                    <a href="${item.href}" class="text-gray-300 hover:text-white transition duration-300">
+                        ${item.label}
+                    </a>
+                </li>
+            `).join("");
+        }
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render Navigation
+            document.getElementById('nav-menu').innerHTML = renderNavigation(navigationData);
+            document.getElementById('mobile-menu').innerHTML = renderNavigation(navigationData);
+
+            // Render Homework
+            document.getElementById('homework-list').innerHTML = renderHomeworkItems(homeworkData);
+
+            // Render Sections
+            document.getElementById('first-aid-cards').innerHTML = renderFirstAidCards(firstAidData);
+            document.getElementById('skills-cards').innerHTML = renderSkillsCards(skillsData);
+            document.getElementById('body-systems').innerHTML = renderBodySystems(bodySystemsData);
+            document.getElementById('news-cards').innerHTML = renderNewsCards(newsData);
+
+            // Render Footer Links
+            document.getElementById('footer-links').innerHTML = renderFooterLinks(footerLinksData);
+
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.className = 'fas fa-bars text-2xl';
+                } else {
+                    icon.className = 'fas fa-times text-2xl';
+                }
+            });
+
+            // Smooth Scrolling for Navigation
+            document.addEventListener('click', function(event) {
+                const link = event.target.closest('a[href^="#"]');
+                if (!link) return;
+                
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    event.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuBtn.querySelector('i').className = 'fas fa-bars text-2xl';
+                    }
+                }
+            });
+
+            // Animate progress ring
+            const progressCircle = document.querySelector('.progress-ring-circle');
+            if (progressCircle) {
+                setTimeout(() => {
+                    progressCircle.style.strokeDashoffset = '113.2'; // 60% of 283
+                }, 500);
+            }
+
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.shadow-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
