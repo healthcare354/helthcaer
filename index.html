@@ -113,10 +113,10 @@
                         <h2 class="text-4xl md:text-5xl font-bold mb-6">مرحباً بك في MJ Health Care</h2>
                         <p class="text-xl mb-8 opacity-90">منصة متكاملة للتعليم الصحي والرعاية الطبية، نقدم لك المعرفة والمهارات اللازمة للتعامل مع الحالات الصحية المختلفة</p>
                         <div class="flex flex-wrap gap-4">
-                            <button class="bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
+                        <button id="btn-start-learning" class="bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
                                 ابدأ التعلم الآن
                             </button>
-                            <button class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary transition duration-300">
+                            <button id="btn-explore-sections" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary transition duration-300">
                                 استكشاف الأقسام
                             </button>
                         </div>
@@ -218,9 +218,9 @@
                             <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
                                 <i class="fas fa-brain text-white text-3xl"></i>
                             </div>
-                            <h4 class="text-lg font-semibold mb-4">اختبار الإسعافات الأولية</h4>
+                        <h4 class="text-lg font-semibold mb-4">اختبار الإسعافات الأولية</h4>
                             <p class="text-gray-700 mb-6">اختبر معرفتك في التعامل مع حالات الحروق والاختناق في 5 دقائق فقط</p>
-                            <button class="bg-accent text-white px-8 py-3 rounded-full font-semibold hover:bg-red-600 transition duration-300 w-full">
+                            <button id="btn-daily-test" class="bg-accent text-white px-8 py-3 rounded-full font-semibold hover:bg-red-600 transition duration-300 w-full">
                                 ابدأ الاختبار الآن
                             </button>
                         </div>
@@ -834,17 +834,17 @@
             document.addEventListener('click', function(event) {
                 const link = event.target.closest('a[href^="#"]');
                 if (!link) return;
-                
+
                 const targetId = link.getAttribute('href').substring(1);
                 const targetElement = document.getElementById(targetId);
-                
+
                 if (targetElement) {
                     event.preventDefault();
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                    
+
                     // Close mobile menu if open
                     if (!mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden');
@@ -852,6 +852,33 @@
                     }
                 }
             });
+
+            // Hero CTA
+            const btnStartLearning = document.getElementById('btn-start-learning');
+            if (btnStartLearning) {
+                btnStartLearning.addEventListener('click', function() {
+                    const target = document.getElementById('first-aid');
+                    if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                });
+            }
+
+            const btnExploreSections = document.getElementById('btn-explore-sections');
+            if (btnExploreSections) {
+                btnExploreSections.addEventListener('click', function() {
+                    const target = document.getElementById('first-aid');
+                    if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                });
+            }
+
+            // Daily test button: افتح قسم الإسعافات كمؤقت (لأن ما عندنا صفحة اختبار حالياً)
+            const btnDailyTest = document.getElementById('btn-daily-test');
+            if (btnDailyTest) {
+                btnDailyTest.addEventListener('click', function() {
+                    const target = document.getElementById('first-aid');
+                    if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                });
+            }
+
 
             // Animate progress ring
             const progressCircle = document.querySelector('.progress-ring-circle');
@@ -870,6 +897,29 @@
                 card.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0)';
                 });
+            });
+
+            // افعل كل الأزرار اللي داخل الكروت (استكشاف/تعلم)
+            // لأن داخل renderSkills/renderBodySystems ما في كود event listener.
+            // هنستخدم event delegation على الزر بناءً على نصه.
+            document.addEventListener('click', function(e) {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+
+                const text = (btn.textContent || '').trim();
+
+                // زر: استكشاف الجهاز (من قسم جسم الإنسان)
+                if (text.includes('استكشاف الجهاز')) {
+                    const card = btn.closest('section#human-body') || document.getElementById('human-body');
+                    const target = document.getElementById('human-body');
+                    if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                }
+
+                // زر: تعلم المهارة (من قسم المهارات العملية)
+                if (text.includes('تعلم المهارة')) {
+                    const target = document.getElementById('practical-skills');
+                    if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                }
             });
 
             // Read More (شرح قوي + تشغيل زر اقرأ المزيد لكل صفحة/بطاقة)
@@ -934,7 +984,12 @@
                 const btn = e.target.closest('.read-more-btn');
                 if (!btn) return;
 
-                const panel = btn.parentElement.parentElement.querySelector('.read-more-panel');
+                // بدل parentElement.parentElement (قد يتغير هيكل DOM) نجيب اللوحة بشكل مضمون
+                // ملاحظة: في الكود الحالي كارت الإسعافات ما عنده class محدد مثل read-more-card،
+                // فبنجيب الـ panel بأقرب هيكل ممكن داخل نفس البطاقة
+                const card = btn.closest('.bg-white');
+                const panel = (card ? card.querySelector('.read-more-panel') : null)
+                    || btn.closest('.read-more-panel');
                 if (!panel) return;
 
                 const title = btn.getAttribute('data-title');
