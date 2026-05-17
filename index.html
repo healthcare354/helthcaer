@@ -693,12 +693,20 @@
                         <h3 class="text-xl font-bold mb-3">${item.title}</h3>
                         <p class="text-gray-600 mb-4">${item.description}</p>
                         <div class="flex justify-between items-center">
-                            <button class="text-primary font-semibold hover:text-primary-dark transition duration-300">
+                            <button class="read-more-btn text-primary font-semibold hover:text-primary-dark transition duration-300" data-title="${item.title}" data-description="${item.description}" data-steps="${item.steps}">
                                 اقرأ المزيد <i class="fas fa-arrow-left mr-2"></i>
                             </button>
                             <span class="text-sm text-gray-500">
                                 <i class="fas fa-clock ml-1"></i> 10 دقائق قراءة
                             </span>
+                        </div>
+
+                        <div class="read-more-panel hidden mt-4 text-sm text-gray-700 bg-gray-50 rounded-lg p-4" aria-live="polite">
+                            <h4 class="font-bold text-gray-900 mb-2">شرح قوي:</h4>
+                            <div class="read-more-content"></div>
+                            <div class="mt-3 flex gap-3">
+                                <button class="read-more-close bg-gray-200 hover:bg-gray-300 text-gray-900 px-4 py-2 rounded-lg font-semibold transition duration-300">إغلاق</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -862,6 +870,96 @@
                 card.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0)';
                 });
+            });
+
+            // Read More (شرح قوي + تشغيل زر اقرأ المزيد لكل صفحة/بطاقة)
+            // الفكرة: عند الضغط على زر "اقرأ المزيد" تظهر لوحة الشرح داخل نفس الـ card.
+            // نستخدم data-* لتكوين شرح طويل داخل read-more-content.
+            const readMoreBtns = document.querySelectorAll('.read-more-btn');
+
+            function buildStrongExplanation(title, description, steps) {
+                // 40 سطر تقريباً: نكرر بنمط تعليمي لكن بدون ما يصير ممل، ونراعي RTL.
+                const safeTitle = title || 'عنوان الدرس';
+                const safeDesc = description || 'وصف مختصر للموضوع';
+                const safeSteps = steps || 0;
+
+                const lines = [];
+                lines.push(`1) عنوان الدرس: ${safeTitle}`);
+                lines.push(`2) وصف مختصر: ${safeDesc}`);
+                lines.push(`3) الهدف من هذا الجزء: تحويل المعرفة النظرية إلى فهم عملي.`);
+                lines.push(`4) قبل البدء: راقب الحالة جيداً ولا تتعامل بعشوائية.`);
+                lines.push(`5) تعتمد جودة الإسعاف على السرعة مع الالتزام بالقواعد الصحيحة.`);
+                lines.push(`6) تذكّر دائماً أن السلامة أولاً، ثم التطبيق.`);
+                lines.push(`7) هذا المحتوى تعليمي وليس بديلاً عن الطبيب.`);
+                lines.push(`8) خطوة الفهم: ما المشكلة الأساسية التي نتعامل معها؟`);
+                lines.push(`9) خطوة التشخيص السريع: ما العلامات التي تدل على الحالة؟`);
+                lines.push(`10) خطوة التقييم: هل يوجد خطر مباشر على المريض أو المحيط؟`);
+                lines.push(`11) استخدم المبادئ العامة: حماية، إبعاد، تقييم.`);
+                lines.push(`12) ملاحظة مهمة: ${safeTitle} قد تتشابه أعراضه مع حالات أخرى.`);
+                lines.push(`13) لذلك اطلب مساعدة متخصصة إذا كانت الحالة غير واضحة.`);
+                lines.push(`14) الآن نصل للجزء التطبيقي: ما المطلوب تنفيذه؟`);
+                lines.push(`15) سنقسم التدريب إلى ${safeSteps} خطوات تقريبية.`);
+                lines.push(`16) الخطوة الأولى: تجهيز المكان والأدوات وتقليل الفوضى.`);
+                lines.push(`17) جهز القفازات/المطهر/وسائل الحماية حسب الحاجة.`);
+                lines.push(`18) الخطوة الثانية: استوعب وضع المريض وحالته العامة.`);
+                lines.push(`19) تحقّق من الوعي والتنفس/الدورة حسب نوع الحالة.`);
+                lines.push(`20) الخطوة الثالثة: اتخذ قراراً سريعاً: هل هي حالة طارئة؟`);
+                lines.push(`21) إن كانت طارئة اتصل بالطوارئ فوراً.`);
+                lines.push(`22) الخطوة الرابعة: اتبع تسلسل الإجراءات دون القفز بين الخطوات.`);
+                lines.push(`23) التزم بمدة كل خطوة ولا تطوّل بدون فائدة.`);
+                lines.push(`24) الخطوة الخامسة: راقب الاستجابة (هل يتحسن الوضع؟).`);
+                lines.push(`25) إذا لم تتحسن، أعد التقييم وغيّر الخطة بما يتناسب.`);
+                lines.push(`26) الخطوة السادسة: حافظ على الراحة الحرارية للمريض.`);
+                lines.push(`27) لا تُسرف بالتحريك إلا عند الضرورة.`);
+                lines.push(`28) الخطوة السابعة: وثّق ما تم (وقت، علامات، إجراءات).`);
+                lines.push(`29) التوثيق يساعد الفريق الطبي ويقلل الأخطاء.`);
+                lines.push(`30) جزء مهم: تجنب الأخطاء الشائعة.`);
+                lines.push(`31) خطأ شائع: تقديم إسعاف غير مناسب للحالة.`);
+                lines.push(`32) خطأ شائع: التأخر في الاتصال بالطوارئ عند الحاجة.`);
+                lines.push(`33) خطأ شائع: ترك المريض دون مراقبة.`);
+                lines.push(`34) خطأ شائع: استخدام مواد/أدوات دون تطهير أو بدون قفازات.`);
+                lines.push(`35) بعد الانتهاء: تأكد من استقرار العلامات الحيوية قدر الإمكان.`);
+                lines.push(`36) ثم تابع مع فريق مختص أو جهة طبية.`);
+                lines.push(`37) التدريب العملي: جرّب السيناريو مرة أخرى بتمهل وبتركيز.`);
+                lines.push(`38) المراجعة الذكية: اكتب ملخصاً من 3 نقاط في كراستك.`);
+                lines.push(`39) اختبر نفسك: ما أول خطوة؟ ما آخر خطوة؟ وما أهم علامة راقبها؟`);
+                lines.push(`40) الخلاصة: ${safeTitle} يتطلب فهم + تطبيق + مراقبة.`);
+
+                // نجعلها HTML صفحات/سطور
+                return lines.join('<br>');
+            }
+
+            // delegate on container: نربط كل زر بلوحة الشرح الخاصة به
+            document.addEventListener('click', function(e) {
+                const btn = e.target.closest('.read-more-btn');
+                if (!btn) return;
+
+                const panel = btn.parentElement.parentElement.querySelector('.read-more-panel');
+                if (!panel) return;
+
+                const title = btn.getAttribute('data-title');
+                const description = btn.getAttribute('data-description');
+                const steps = btn.getAttribute('data-steps');
+
+                const content = panel.querySelector('.read-more-content');
+                if (content) {
+                    content.innerHTML = buildStrongExplanation(title, description, steps);
+                }
+
+                panel.classList.toggle('hidden');
+
+                if (!panel.classList.contains('hidden')) {
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                const closeBtn = e.target.closest('.read-more-close');
+                if (!closeBtn) return;
+
+                const panel = closeBtn.closest('.read-more-panel');
+                if (!panel) return;
+                panel.classList.add('hidden');
             });
         });
     </script>
